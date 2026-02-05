@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map Quiz</title>
+    <!-- CSS for jsVectorMap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap/dist/css/jsvectormap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- SVG Gradients for the Map -->
+    <svg width="0" height="0" style="position:absolute;z-index:-1;">
+        <defs>
+            <linearGradient id="earthGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#d2b48c;stop-opacity:1" /> <!-- Tan -->
+                <stop offset="100%" style="stop-color:#bc8f8f;stop-opacity:1" /> <!-- Rosy Brown -->
+            </linearGradient>
+            <linearGradient id="selectedGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#dcfe4b;stop-opacity:1" /> <!-- Neon Yellow-Green -->
+                <stop offset="100%" style="stop-color:#ffff00;stop-opacity:1" /> <!-- Pure Yellow -->
+            </linearGradient>
+        </defs>
+    </svg>
+
+    <div class="background-mesh"></div>
+
+    <div id="flash-overlay" class="flash-overlay"></div>
+    <main id="game-app">
+        <header class="stats-bar">
+            <div class="stat-item">
+                <span class="label">Score</span>
+                <span class="value" id="score">0</span>
+            </div>
+            <div class="app-title">
+                <h1>MAPS</h1>
+            </div>
+            <div class="stat-item">
+                <span class="label">Progress</span>
+                <span class="value" id="count">0/0</span>
+            </div>
+        </header>
+
+        <!-- Game Over Section -->
+        <section id="game-over" class="glass-panel hidden">
+            <h2>Game Over!</h2>
+            <div class="final-score">
+                <span class="label">Final Score</span>
+                <span class="value" id="final-score-value">0</span>
+            </div>
+            <div id="stats-breakdown" class="stats-breakdown">
+                <!-- Javascript will populate this -->
+            </div>
+            <p id="final-message" class="final-message"></p>
+            <button id="restart-btn" class="primary-btn">Back to Menu</button>
+        </section>
+
+        <section id="game-container" class="glass-panel">
+            <div class="loading-overlay hidden" id="loading">
+                <div class="spinner"></div>
+            </div>
+
+            <div class="map-stage">
+                <div id="map-container" style="width: 100%;"></div>
+                <div class="continent-hint" id="continent-hint">
+                    <!-- Javascript will populate this -->
+                </div>
+            </div>
+
+            <div class="options-grid" id="options-container">
+                <!-- Buttons will be injected here -->
+            </div>
+
+        </section>
+    </main>
+
+    <!-- JS for jsVectorMap -->
+    <script src="https://cdn.jsdelivr.net/npm/jsvectormap"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsvectormap/dist/maps/world.js"></script>
+
+    <script src="countries.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
