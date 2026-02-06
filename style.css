@@ -43,6 +43,7 @@ h1 {
     font-weight: 800;
     background: linear-gradient(to right, #818cf8, #c084fc);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 1rem;
     letter-spacing: -0.025em;
@@ -76,29 +77,86 @@ p.subtitle {
     position: relative;
     overflow: hidden;
     animation: fadeInUp 0.8s ease-out both;
+    z-index: 1;
+    /* Ensure content is above background */
 }
 
-.game-card:nth-child(1) { animation-delay: 0.2s; }
-.game-card:nth-child(2) { animation-delay: 0.4s; }
-.game-card:nth-child(3) { animation-delay: 0.6s; }
+.game-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.15;
+    /* Subdued background by default */
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+    z-index: -1;
+}
+
+#card-flags::before {
+    background-image: url('assets/flags_bg.jpg');
+}
+
+#card-capitals::before {
+    background-image: url('assets/capitals_bg.jpg');
+}
+
+#card-maps::before {
+    background-image: url('assets/maps_bg.jpg');
+}
+
+.game-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(15, 23, 42, 0.2), rgba(15, 23, 42, 0.8));
+    z-index: -1;
+    opacity: 0.8;
+}
+
+.game-card:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.game-card:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.game-card:nth-child(3) {
+    animation-delay: 0.6s;
+}
 
 .game-card:hover {
     transform: translateY(-10px) scale(1.02);
-    background: rgba(255, 255, 255, 0.08);
     border-color: rgba(99, 102, 241, 0.5);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.game-card:hover::before {
+    transform: scale(1.1);
+    opacity: 0.3;
 }
 
 .icon-wrapper {
     width: 80px;
     height: 80px;
-    background: rgba(99, 102, 241, 0.1);
+    background: rgba(255, 255, 255, 0.1);
+    /* Lighter background */
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 1.5rem;
     transition: all 0.4s ease;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .game-card:hover .icon-wrapper {
@@ -107,10 +165,14 @@ p.subtitle {
 }
 
 .icon-wrapper svg {
-    width: 40px;
-    height: 40px;
-    color: #818cf8;
-    transition: color 0.4s ease;
+    width: 44px;
+    /* Slightly larger */
+    height: 44px;
+    color: #ffffff;
+    /* pure white for maximum visibility */
+    filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.5));
+    /* Glow effect */
+    transition: all 0.4s ease;
 }
 
 .game-card:hover .icon-wrapper svg {
@@ -121,12 +183,16 @@ h2 {
     font-size: 1.75rem;
     margin-bottom: 0.75rem;
     font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 p.description {
     font-size: 1rem;
-    color: var(--text-muted);
+    color: var(--text-main);
+    /* Brighter text for better contrast on images */
+    opacity: 0.9;
     line-height: 1.5;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 footer {
@@ -137,16 +203,35 @@ footer {
 }
 
 @keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @media (max-width: 640px) {
-    h1 { font-size: 2.5rem; }
-    body { padding: 1.5rem; }
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    body {
+        padding: 1.5rem;
+    }
 }
