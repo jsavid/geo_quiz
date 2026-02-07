@@ -93,6 +93,7 @@ const finalMessage = document.getElementById('final-message');
 const restartBtn = document.getElementById('restart-btn');
 const continentHint = document.getElementById('continent-hint');
 const optionsContainer = document.getElementById('options-container');
+const backToMenuBtn = document.getElementById('back-to-menu-btn');
 const flashOverlay = document.getElementById('flash-overlay');
 
 const TOTAL_QUESTIONS = 20;
@@ -131,12 +132,15 @@ function init() {
     // UI Reset
     gameContainer.classList.remove('hidden');
     gameOverSection.classList.add('hidden');
+    backToMenuBtn.classList.remove('hidden');
 
     generateQuestion();
 
-    restartBtn.onclick = () => {
+    const goToMenu = () => {
         window.location.href = '../index.html';
     };
+    restartBtn.onclick = goToMenu;
+    backToMenuBtn.onclick = goToMenu;
 }
 
 function updateScoreUI() {
@@ -157,6 +161,7 @@ function triggerFlash(type) {
 
 function endGame() {
     gameContainer.classList.add('hidden');
+    backToMenuBtn.classList.add('hidden');
     gameOverSection.classList.remove('hidden');
 
     const percentage = Math.round((currentScore / TOTAL_QUESTIONS) * 100);
